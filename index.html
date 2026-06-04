@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Felix — Finance & Technology Professional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,300;8..60,400;8..60,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1814;
+      --ink-soft:  #4a453e;
+      --ink-faint: #8a837a;
+      --cream:     #faf8f4;
+      --paper:     #f2ede6;
+      --rule:      #ddd8cf;
+      --gold:      #b8953a;
+      --gold-lt:   #d4ae5a;
+      --accent:    #2b5c8a;
+      --accent-lt: #3d7ab5;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(250,248,244,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem;
+      height: 64px;
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 64px;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 6rem;
+      background: var(--cream);
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      max-width: 38ch;
+      margin-bottom: 2.5rem;
+      line-height: 1.65;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      border-radius: 2px;
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.22s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      border: 2px solid var(--accent);
+    }
+    .btn-primary:hover { background: var(--accent-lt); border-color: var(--accent-lt); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 2px solid var(--rule);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-right {
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 30% 30%, rgba(184,149,58,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 80%, rgba(43,92,138,0.22) 0%, transparent 55%);
+    }
+    .hero-monogram {
+      position: relative; z-index: 1;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(7rem, 16vw, 14rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(184,149,58,0.5);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      user-select: none;
+      animation: fadeUp 1.2s ease both;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      animation: fadeIn 2s 1s both;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-rule {
+      width: 48px; height: 3px;
+      background: linear-gradient(to right, var(--gold), transparent);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .about-sidebar {}
+    .about-card {
+      background: var(--cream);
+      border: 1px solid var(--rule);
+      border-top: 3px solid var(--gold);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .about-card-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.5rem;
+    }
+    .about-card-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .about-body p {
+      color: var(--ink-soft);
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+    .about-body p:last-child { margin-bottom: 0; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      padding: 1.75rem;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--rule);
+      transition: background 0.2s;
+    }
+    .skill-card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(26,24,20,0.08); }
+    .skill-card:hover::before { background: var(--accent); }
+    .skill-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+    .skill-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--ink);
+    }
+    .skill-card p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin-top: 1rem;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem;
+      background: var(--paper);
+      color: var(--ink-faint);
+      border: 1px solid var(--rule);
+    }
+
+    /* ── LEARNING JOURNEY ── */
+    #learning { background: var(--ink); color: var(--cream); }
+    #learning .section-title { color: var(--cream); }
+    #learning .section-label { color: var(--gold-lt); }
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding: 0 0 3rem 2.5rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute; left: -2rem;
+      top: 0.35rem;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--ink);
+      transform: translateX(-50%) translateX(0.5px);
+    }
+    .timeline-item.active::before { background: var(--gold-lt); box-shadow: 0 0 0 4px rgba(184,149,58,0.25); }
+    .timeline-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 0.4rem;
+    }
+    .timeline-desc {
+      font-size: 0.9rem;
+      color: rgba(250,248,244,0.55);
+      line-height: 1.65;
+    }
+    .badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 2px;
+      margin-left: 0.75rem;
+      vertical-align: middle;
+    }
+    .badge-active { background: rgba(184,149,58,0.2); color: var(--gold-lt); border: 1px solid rgba(184,149,58,0.3); }
+    .badge-upcoming { background: rgba(43,92,138,0.2); color: #7fb3e0; border: 1px solid rgba(43,92,138,0.35); }
+
+    /* ── BLOG ── */
+    #blog { background: var(--white); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .post-card {
+      border: 1px solid var(--rule);
+      background: var(--cream);
+      padding: 2rem;
+      transition: box-shadow 0.2s;
+      cursor: pointer;
+    }
+    .post-card:hover { box-shadow: 0 6px 28px rgba(26,24,20,0.1); }
+    .post-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+      margin-bottom: 0.75rem;
+    }
+    .post-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.35;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+    .post-excerpt {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .post-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .post-link:hover { color: var(--gold); }
+    .post-placeholder {
+      border: 1px dashed var(--rule);
+      background: transparent;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 200px;
+      color: var(--ink-faint);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-align: center;
+      gap: 0.5rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--paper); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-intro { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.75; margin-bottom: 2rem; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--accent); }
+    .contact-link-icon {
+      width: 36px; height: 36px;
+      border: 1px solid var(--rule);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
+    .form-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .form-input, .form-textarea {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      padding: 0.75rem 1rem;
+      font-family: 'Source Serif 4', serif;
+      font-size: 0.95rem;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { min-height: 120px; resize: vertical; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(250,248,244,0.45);
+      text-align: center;
+      padding: 2.5rem 3rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(1); }
+      50% { opacity: 0.8; transform: scaleY(1.1); }
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 4rem 2rem; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .skills-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
+      nav { padding: 0 1.5rem; }
+      .container { padding: 0 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      .skills-grid, .blog-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-brand">F<span>.</span>K</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Expertise</a></li>
+    <li><a href="#learning">Learning</a></li>
+    <li><a href="#blog">Journal</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Finance · Technology · Builder</p>
+    <h1 class="hero-name">Felix<br><em>Kokotech</em></h1>
+    <p class="hero-tagline">
+      Finance & management professional navigating the intersection of fintech and software engineering. Building tools that help companies and communities scale.
+    </p>
+    <div class="hero-cta">
+      <a href="#about" class="btn btn-primary">About Me</a>
+      <a href="#blog" class="btn btn-outline">Read Journal</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-monogram">FK</div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      scroll
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-sidebar fade-in">
+        <p class="section-label">Who I Am</p>
+        <h2 class="section-title">Finance Professional.<br>Emerging Builder.</h2>
+        <div class="section-rule"></div>
+        <div class="about-card">
+          <div class="about-card-label">Domain</div>
+          <div class="about-card-value">Finance & Fintech</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Current Focus</div>
+          <div class="about-card-value">Full-Stack Development</div>
+        </div>
+        <div class="about-card">
+          <div class="about-card-label">Mission</div>
+          <div class="about-card-value">Technology Democratisation</div>
+        </div>
+      </div>
+      <div class="about-body fade-in">
+        <p>
+          I am a finance and management professional with deep roots in fintech operations. Over the years, I have built a strong understanding of financial systems, reconciliation workflows, and the operational backbone that keeps modern financial platforms running.
+        </p>
+        <p>
+          My work in fintech sparked a genuine fascination with the technology that powers it — which led me to embark on a structured journey into software engineering. I am currently studying Python, web development, and full-stack engineering through FreeCodeCamp's curriculum.
+        </p>
+        <p>
+          My ambition is to grow into an engineer capable of building platforms that help companies and community groups scale their operations through thoughtful, accessible technology. I believe the best digital tools are built by people who understand both the human problem and the technical solution.
+        </p>
+        <p>
+          This site is both my professional portfolio and an open journal of that learning journey — written in public, updated with every milestone.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label fade-in">What I Bring</p>
+    <h2 class="section-title fade-in">Expertise & Capabilities</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="skills-grid">
+      <div class="skill-card fade-in">
+        <div class="skill-icon">⚖️</div>
+        <h3>Finance & Operations</h3>
+        <p>Deep experience in financial reconciliation, management reporting, and operational workflows within fintech environments.</p>
+        <div class="skill-tags">
+          <span class="tag">Reconciliation</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Fintech Ops</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🐍</div>
+        <h3>Python Development</h3>
+        <p>Currently advancing through structured Python training, applying skills to automation and financial data workflows.</p>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Automation</span>
+          <span class="tag">In Progress</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🌐</div>
+        <h3>Web Development</h3>
+        <p>Building foundational knowledge in HTML, CSS, and JavaScript toward full-stack capability.</p>
+        <div class="skill-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🛠️</div>
+        <h3>Process Automation</h3>
+        <p>Proven ability to design and implement tools that automate repetitive operational tasks — including AI-powered reconciliation skills.</p>
+        <div class="skill-tags">
+          <span class="tag">Workflow Design</span>
+          <span class="tag">AI Tools</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">📊</div>
+        <h3>Data & Analytics</h3>
+        <p>Strong analytical grounding in financial data — interpreting trends, building reports, and surfacing insights from complex datasets.</p>
+        <div class="skill-tags">
+          <span class="tag">Data Analysis</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Reporting</span>
+        </div>
+      </div>
+      <div class="skill-card fade-in">
+        <div class="skill-icon">🏗️</div>
+        <h3>Platform Thinking</h3>
+        <p>Approaching technology with the lens of a builder — focused on scalable systems that serve real organisational needs.</p>
+        <div class="skill-tags">
+          <span class="tag">Systems Design</span>
+          <span class="tag">Scalability</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEARNING JOURNEY -->
+<section id="learning">
+  <div class="container">
+    <p class="section-label fade-in">The Road Ahead</p>
+    <h2 class="section-title fade-in">Learning Journey</h2>
+    <div class="section-rule" style="background: linear-gradient(to right, var(--gold), transparent);"></div>
+    <div class="timeline">
+      <div class="timeline-item active fade-in">
+        <div class="timeline-meta">Now · FreeCodeCamp</div>
+        <div class="timeline-title">Python Certification <span class="badge badge-active">Active</span></div>
+        <div class="timeline-desc">Structured Python programming — data structures, algorithms, and applied scripting for automation and analysis.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-meta">In Parallel · FreeCodeCamp</div>
+        <div class="timeline-title">Responsive Web Design Certification <span class="badge badge-active">Active</span></div>
+        <div class="timeline-desc">HTML5 semantic structure, CSS layouts, Flexbox, Grid — the complete foundation of modern web interfaces.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-meta">Next · FreeCodeCamp</div>
+        <div class="timeline-title">JavaScript Algorithms & Data Structures <span class="badge badge-upcoming">Upcoming</span></div>
+        <div class="timeline-desc">Core JS: variables, functions, OOP, functional programming, and algorithmic problem solving.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-meta">Later · FreeCodeCamp</div>
+        <div class="timeline-title">Front-End Libraries · Back-End & APIs <span class="badge badge-upcoming">Upcoming</span></div>
+        <div class="timeline-desc">React, Node.js, Express, MongoDB — the full stack of modern web application development.</div>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-meta">Goal · FreeCodeCamp</div>
+        <div class="timeline-title">Certified Full-Stack Developer <span class="badge badge-upcoming">Upcoming</span></div>
+        <div class="timeline-desc">Culminating certification covering the entire web stack — front-end, back-end, databases, and deployment.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / JOURNAL -->
+<section id="blog">
+  <div class="container">
+    <p class="section-label fade-in">Thinking Out Loud</p>
+    <h2 class="section-title fade-in">Field Journal</h2>
+    <div class="section-rule fade-in"></div>
+    <div class="blog-grid">
+      <div class="post-card fade-in">
+        <div class="post-date">June 2026 · First Entry</div>
+        <div class="post-title">Why a Finance Professional Is Learning to Code</div>
+        <div class="post-excerpt">The gap between understanding a system and being able to build one is vast. Here's why I decided to close it — and what fintech taught me about the value of that pursuit.</div>
+        <a href="#" class="post-link">Read →</a>
+      </div>
+      <div class="post-card fade-in">
+        <div class="post-date">June 2026 · Tools</div>
+        <div class="post-title">Building an Automated Reconciliation Tool with AI</div>
+        <div class="post-excerpt">Before writing a single line of code, I built a working reconciliation skill using Claude. A reflection on what that experience taught me about systems thinking and prototyping.</div>
+        <a href="#" class="post-link">Read →</a>
+      </div>
+      <div class="post-placeholder fade-in">
+        <span>✦</span>
+        <span>Next post coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="fade-in">
+        <p class="section-label">Get In Touch</p>
+        <h2 class="section-title">Let's Connect</h2>
+        <div class="section-rule"></div>
+        <p class="contact-intro">
+          Whether you're working on a fintech challenge, exploring technology partnerships, or simply share an interest in the intersection of finance and software — I'd love to hear from you.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:hello@example.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            hello@example.com
+          </a>
+          <a href="https://linkedin.com" class="contact-link" target="_blank">
+            <div class="contact-link-icon">in</div>
+            LinkedIn Profile
+          </a>
+          <a href="https://github.com" class="contact-link" target="_blank">
+            <div class="contact-link-icon">⌥</div>
+            GitHub Profile
+          </a>
+        </div>
+      </div>
+      <div class="fade-in">
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input class="form-input" type="text" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="What's on your mind?"></textarea>
+          </div>
+          <button class="btn btn-primary" style="align-self: flex-start; border: none; cursor: pointer;">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Felix K.</span> — Finance & Technology Professional · Built with intention, updated with every milestone.</p>
+</footer>
+
+<script>
+  // Scroll-triggered fade-ins
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Hero left animation on load
+  document.querySelector('.hero-left').style.animation = 'fadeUp 1s ease both';
+</script>
+</body>
+</html>
